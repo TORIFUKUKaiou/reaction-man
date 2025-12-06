@@ -20,6 +20,11 @@ export class ReactionManStack extends cdk.Stack {
       throw new Error('Slack parameter names must be provided.');
     }
 
+    const logGroup = new logs.LogGroup(this, 'ReactionManLogGroup', {
+      retention: logs.RetentionDays.ONE_DAY,
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
+    });
+
     const handler = new lambda.Function(this, 'ReactionManHandler', {
       runtime: lambda.Runtime.PYTHON_3_14,
       architecture: lambda.Architecture.ARM_64,
@@ -29,8 +34,7 @@ export class ReactionManStack extends cdk.Stack {
       timeout: cdk.Duration.seconds(10),
       memorySize: 256,
       retryAttempts: 0,
-      reservedConcurrentExecutions: 10,
-      logRetention: logs.RetentionDays.ONE_DAY,
+      logGroup: logGroup,
       environment: {
         SLACK_BOT_TOKEN_PARAMETER: props.slackBotTokenParameterName,
         SLACK_SIGNING_SECRET_PARAMETER: props.slackSigningSecretParameterName,
