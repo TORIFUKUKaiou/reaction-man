@@ -78,14 +78,17 @@ def verify_signature(headers: Dict[str, str], raw_body: str) -> bool:
     slack_signature = headers.get('x-slack-signature', '')
 
     if not signing_secret or not timestamp or not slack_signature:
+        logger.warning('Missing signature headers')
         return False
 
     try:
         timestamp_int = int(timestamp)
     except ValueError:
+        logger.warning('Invalid timestamp format: %s', timestamp)
         return False
 
     if abs(time.time() - timestamp_int) > 60 * 5:
+        logger.warning('Request timestamp too old: %s', timestamp)
         return False
 
     sig_basestring = f'v0:{timestamp}:{raw_body}'

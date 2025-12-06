@@ -40,12 +40,13 @@ Slack メッセージに自動リアクションを付与するための AWS サ
      --overwrite
    ```
 
-3. (必要に応じて) `cdk.json` の context か `cdk deploy` 時の `-c` 引数でパラメータ名を上書きできます。
+3. (必要に応じて) `cdk.json` の context か `cdk deploy` 時の `-c` 引数でパラメータ名やリアクション絵文字を上書きできます。
 
    ```sh
    cdk deploy \
      -c slackBotTokenParameterName=/reaction-man/slack/bot-token \
-     -c slackSigningSecretParameterName=/reaction-man/slack/signing-secret
+     -c slackSigningSecretParameterName=/reaction-man/slack/signing-secret \
+     -c slackReactions=heart,fire,100
    ```
 
 4. デプロイ
@@ -72,6 +73,7 @@ Slack メッセージに自動リアクションを付与するための AWS サ
 - `event_callback` のメッセージイベントのみ処理し、Bot 投稿やサブタイプ付きメッセージは除外
 - `SLACK_REACTIONS` 環境変数でリアクション候補 (カンマ区切り) を変更可能
 - Parameter Store の値は Lambda 内でキャッシュし、複数イベントでも効率的に再利用
+- 同時実行数を 10 に制限し、ログ保持期間は 1 日に設定
 
 ## ローカルテスト
 
