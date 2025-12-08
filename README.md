@@ -20,6 +20,18 @@ Slack メッセージに自動リアクションを付与するための AWS サ
 
 1. 依存関係をインストール
 
+   **CloudShellで実施する場合**
+   ```sh
+   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+   source ~/.bashrc
+   nvm install 22
+   nvm use 22
+   npm install -g aws-cdk
+   cd ~
+   git clone https://github.com/TORIFUKUKaiou/reaction-man.git
+   cd reaction-man
+   ```
+
    ```sh
    npm install
    ```
