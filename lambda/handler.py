@@ -65,8 +65,6 @@ def lambda_handler(event: Dict[str, Any], _context: Any) -> Dict[str, Any]:
 def _should_react(event_body: Dict[str, Any]) -> bool:
     if event_body.get('type') != 'message':
         return False
-    if event_body.get('subtype'):
-        return False
     if event_body.get('bot_id'):
         return False
     return bool(event_body.get('channel') and event_body.get('ts'))
