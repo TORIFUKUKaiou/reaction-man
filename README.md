@@ -11,7 +11,7 @@ Slack メッセージに自動リアクションを付与するための AWS サ
 
 ## 前提条件
 
-- Node.js 18+ / npm
+- Node.js 24 / npm
 - AWS CLI と `~/.aws` にデフォルトプロファイル
 - CDK v2 (`npm install -g aws-cdk`) インストール済み
 - Slack アプリ (Events API を有効化、`chat:write`, `reactions:write`, `app_mentions:read`, `channels:history` などの権限)
@@ -24,8 +24,8 @@ Slack メッセージに自動リアクションを付与するための AWS サ
    ```sh
    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
    source ~/.bashrc
-   nvm install 22
-   nvm use 22
+   nvm install 24
+   nvm use 24
    npm install -g aws-cdk
    cd ~
    git clone https://github.com/TORIFUKUKaiou/reaction-man.git
